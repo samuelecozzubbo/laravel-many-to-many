@@ -62,8 +62,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -78,6 +79,17 @@ class ProjectController extends Controller
 
 
         $project->update($data);
+
+        //Verifico che in data esista la chiave technologies che sta a significare che sono stati selezionate delle tecnologie
+        if (array_key_exists('technologies', $data)) {
+            //Se invio dei tag aggiorno tutte le relazioni
+            //sync aggiunge le relazioni mancanti e cancella quelle che non esistono più
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            //se non vengono inviati tag devo cancellare le relazioni
+            //detach cancella tutte le relzioni
+            $project->technologies()->detach();
+        }
 
         return redirect()->route('admin.projects.show', $project)->with('message', 'Post modificato correttamente');
     }
