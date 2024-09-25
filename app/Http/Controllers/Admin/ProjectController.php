@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Functions\Helper;
 use App\Http\Requests\ProjectRequest;
+use App\Models\Technology;
 use App\Models\Type;
 
 class ProjectController extends Controller
@@ -25,8 +26,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -38,6 +40,11 @@ class ProjectController extends Controller
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
 
         $project = Project::create($data);
+        //Verifico che in data esista la chiave tags che sta a significare che sono stati selezionati dei tag
+        if (array_key_exists('technolohies', $data)) {
+            //Se esiste la chiave creo con attach la relazione con il post creato e gli id dei tag selezionati
+            $project->technologies()->attach($data['technologies']);
+        }
 
         return redirect()->route('admin.projects.show', $project);
     }
