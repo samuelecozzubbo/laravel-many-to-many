@@ -39,7 +39,14 @@
                     </td>
                     {{-- Tecnologie --}}
                     <td>
-                        @dump($project->categories)
+                        {{-- @dump($project->technologies) --}}
+                        @forelse ($project->technologies as $technology)
+                            <span class="badge bg-warning">
+                                {{ $technology->name }}
+                            </span>
+                        @empty
+                            -
+                        @endforelse
                     </td>
 
                     <td>

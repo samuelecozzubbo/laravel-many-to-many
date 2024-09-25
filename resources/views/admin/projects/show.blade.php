@@ -11,6 +11,18 @@
         <p>End Date: {{ $project->end_date }}</p>
         <p>Collaborators: {{ $project->collaborators }}</p>
         <p>Categoria: {{ $project->type ? $project->type->name : 'Nessuna categoria' }}</p>
+        @if ($project->technologies)
+            Tecnologie:
+            <ul>
+                @foreach ($project->technologies as $tecnology)
+                    <li>
+                        <span class="badge bg-warning">
+                            {{ $tecnology->name }}
+                        </span>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
         @if ($project->img)
             <img src="{{ $project->img }}" alt="{{ $project->title }}">
         @endif
