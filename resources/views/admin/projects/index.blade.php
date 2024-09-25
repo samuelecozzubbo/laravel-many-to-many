@@ -56,7 +56,8 @@
                         <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-warning">
                             <i class="fa-solid fa-pencil"></i>
                         </a>
-                        <form class="d-inline" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                        <form class="d-inline" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+                            onsubmit="return confirm('Sicuro di voler cancellare {{ $project->title }}?')">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>

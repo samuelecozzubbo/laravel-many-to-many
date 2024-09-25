@@ -41,7 +41,7 @@ class ProjectController extends Controller
 
         $project = Project::create($data);
         //Verifico che in data esista la chiave tags che sta a significare che sono stati selezionati dei tag
-        if (array_key_exists('technolohies', $data)) {
+        if (array_key_exists('technologies', $data)) {
             //Se esiste la chiave creo con attach la relazione con il post creato e gli id dei tag selezionati
             $project->technologies()->attach($data['technologies']);
         }
