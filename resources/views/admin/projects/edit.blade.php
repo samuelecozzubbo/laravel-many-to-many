@@ -77,6 +77,22 @@
             </select>
         </div>
 
+        {{-- Tecnologie --}}
+        <div class="form-group">
+            <label for="type">Tecnologie</label>
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                @foreach ($technologies as $technology)
+                    <input type="checkbox" class="btn-check" id="technology-{{ $technology->id }}" autocomplete="off"
+                        value="{{ $technology->id }}" name="technologies[]"
+                        @if (
+                            ($errors->any() && in_array($technology->id, old('technologies', []))) ||
+                                (!$errors->any() && $project->technologies->contains($technology))) checked @endif>
+                    <label class="btn btn-outline-primary"
+                        for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
+                @endforeach
+            </div>
+        </div>
+
         {{-- Img --}}
         <div class="form-group">
             <label for="img">URL Immagine</label>
