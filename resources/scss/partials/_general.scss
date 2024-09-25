@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header,aside{
+    a{
+        text-decoration: none;
+        color: white;
+        &:hover{
+            color: red;
+        }
+    }
+
+    li{
+        list-style: none;
+    }
+}
+
+header{
+    height: 80px;
+}
+
+.main-wrapper{
+    height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+aside{
+    width: 200px;
+    height: 100%;
+
+    li{
+        margin: 20px 0;
+    }
+}
+
+.content{
+    overflow: auto;
+}
