@@ -16,6 +16,7 @@
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
                 <th scope="col">Tipo</th>
+                <th scope="col">Tecnologie</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->start_date }}</td>
                     <td>{{ $project->end_date }}</td>
+                    {{-- Tipi --}}
                     <td>
                         @if ($project->type)
                             <span class="badge bg-success">
@@ -34,6 +36,10 @@
                         @else
                             -
                         @endif
+                    </td>
+                    {{-- Tecnologie --}}
+                    <td>
+                        @dump($project->categories)
                     </td>
 
                     <td>
