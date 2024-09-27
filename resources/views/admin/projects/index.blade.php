@@ -13,6 +13,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">Image</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
                 <th scope="col">Tipo</th>
@@ -25,6 +26,12 @@
                 <tr>
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->title }}</td>
+                    {{--  Image --}}
+                    <td class="col-2">
+                        <img class="w-50" src="{{ asset('storage/' . $project->img) }}"
+                            alt="{{ $project->image_original_name }}" onerror="this.src='{{ asset('img/no-image.png') }}'">
+                        <p>{{ $project->image_original_name }}</p>
+                    </td>
                     <td>{{ $project->start_date }}</td>
                     <td>{{ $project->end_date }}</td>
                     {{-- Tipi --}}
