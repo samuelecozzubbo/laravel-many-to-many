@@ -11,7 +11,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+    <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data">
         @csrf <!-- Token CSRF necessario per protezione -->
         @method('PUT')
         {{-- Title --}}
@@ -93,15 +93,29 @@
             </div>
         </div>
 
-        {{-- Img --}}
-        <div class="form-group">
-            <label for="img">URL Immagine</label>
-            <input value="{{ old('img', $project->img) }}" type="url" name="img" id="img"
-                class="@error('img') is-invalid @enderror form-control">
+        {{-- Immagine --}}
+        <div class="form-group mb-3">
+            <label for="img">Immagine</label>
+            <input type="file" name="img" id="img" class="form-control" placeholder="Scegli un file"
+                onchange=showImage(event)>
+            {{-- Mostra immagine --}}
+            <img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->image_original_name }}"
+                onerror="this.src='/img/no-image.png'" class="thumb w-50" id="thumb">
             @error('img')
                 <small class="text-danger"> {{ $message }} </small>
             @enderror
         </div>
+
+        <script>
+            function showImage(event) {
+                //console.log(event.target.files[0]);
+                //console.log(URL.createObjectURL(event.target.files[0]));
+
+                const thumb = document.getElementById('thumb');
+                thumb.src = URL.createObjectURL(event.target.files[0]);
+
+            }
+        </script>
 
 
         <button type="submit" class="btn btn-danger">Modifica Progetto</button>

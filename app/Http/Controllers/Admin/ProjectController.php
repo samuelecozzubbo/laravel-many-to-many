@@ -90,6 +90,17 @@ class ProjectController extends Controller
             $data['slug'] = Helper::generateSlug($data['title'], Project::class);
         }
 
+        //VERIFICO se viene caricata l'immagine ossia se esiste la chaive img
+        if (array_key_exists('img', $data)) {
+            $img = Storage::delete($project->img);
+
+            //cancello la vecchia e metto la buova img
+            $img = Storage::put('public/uploads', $data['img']);
+            $original_name = $request->file('img')->getClientOriginalName();
+            $data['img'] = $img;
+            $data['image_original_name'] = $original_name;
+        }
+
 
         $project->update($data);
 
@@ -112,6 +123,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        //SE è PRESENTE UN IMMAGINE LA ELIMINO
+        if ($project->img) {
+            Storage::delete($project->img);
+        }
+
         $project->delete();
 
         return redirect()->route('admin.projects.index')->with('cancelled', 'Post eliminato con successo');
