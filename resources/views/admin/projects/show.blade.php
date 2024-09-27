@@ -23,9 +23,9 @@
                 @endforeach
             </ul>
         @endif
-        @if ($project->img)
-            <img src="{{ $project->img }}" alt="{{ $project->title }}">
-        @endif
+        <img class="w-50" src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->image_original_name }}"
+            onerror="this.src='/img/no-image.png'">
+        <p>{{ $project->image_original_name }}</p>
         <br>
         <a href="{{ route('admin.projects.index') }}" class="btn btn-warning mt-3">Torna alla lista</a>
     </div>
