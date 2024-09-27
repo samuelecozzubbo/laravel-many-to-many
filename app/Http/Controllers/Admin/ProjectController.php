@@ -9,6 +9,8 @@ use App\Functions\Helper;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProjectController extends Controller
 {
@@ -38,6 +40,17 @@ class ProjectController extends Controller
     {
         $data = $request->all();
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
+
+        //VERIFICO se viene caricata l'immagine ossia se esiste la chaive img
+        if (array_key_exists('img', $data)) {
+            //se esiste la chiave salvo immagine dentro storage nella cartella uploads
+            $img = Storage::put('uploads', $data['img']);
+            //ottengo il nome originale dell'immagine
+            //aggiungo i valori a $data
+            $original_name = $request->file('img')->getClientOriginalName();
+            $data['img'] = $img;
+            $data['image_original_name'] = $original_name;
+        }
 
         $project = Project::create($data);
         //Verifico che in data esista la chiave tags che sta a significare che sono stati selezionati dei tag

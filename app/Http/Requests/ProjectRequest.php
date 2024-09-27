@@ -27,7 +27,7 @@ class ProjectRequest extends FormRequest
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'collaborators' => 'required|integer|min:1',
-            'img' => 'nullable|url'
+            'img' => 'image|mimes:png,jpg|max:5120',
         ];
     }
 
@@ -43,7 +43,9 @@ class ProjectRequest extends FormRequest
             'collaborators.required' => 'Il numero di collaboratori è obbligatorio.',
             'collaborators.integer' => 'Il numero di collaboratori deve essere un numero intero.',
             'collaborators.min' => 'Il numero minimo di collaboratori è 1.',
-            'img.url' => 'Il campo immagine deve essere un URL valido.'
+            'img.image' => 'Il file caricato deve essere un\'immagine.',
+            'img.mimes' => 'L\'immagine deve essere un file di tipo: png, jpg.',
+            'img.max' => 'L\'immagine non può superare i 5 MB di dimensione.',
         ];
     }
 }
