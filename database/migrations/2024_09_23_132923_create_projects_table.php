@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->tinyInteger('collaborators');
             $table->string('img')->nullable();
+            $table->string('image_original_name')->nullable();
             $table->timestamps();
         });
     }
