@@ -37,7 +37,7 @@
         {{-- Start date --}}
         <div class="form-group">
             <label for="reading_time">Data di inizio</label>
-            <input value="{{ old('start_date') }}" type="string" name="start_date" id="start_date"
+            <input value="{{ old('start_date') }}" type="date" name="start_date" id="start_date"
                 class="@error('start_date') is-invalid @enderror form-control" min="1">
             @error('start_date')
                 <small class="text-danger"> {{ $message }} </small>

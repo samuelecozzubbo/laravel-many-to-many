@@ -44,7 +44,7 @@ class ProjectController extends Controller
         //VERIFICO se viene caricata l'immagine ossia se esiste la chaive img
         if (array_key_exists('img', $data)) {
             //se esiste la chiave salvo immagine dentro storage nella cartella uploads
-            $img = Storage::put('uploads', $data['img']);
+            $img = Storage::put('public/uploads', $data['img']);
             //ottengo il nome originale dell'immagine
             //aggiungo i valori a $data
             $original_name = $request->file('img')->getClientOriginalName();
